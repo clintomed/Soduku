@@ -28,8 +28,14 @@ public class Sudoku extends UI {
 	private GridLayout grid;
 	private Board board;
 	
+	private GridLayout inputGrid;
+	private Panel inputPanel;
+	
 	private final VerticalLayout vLayout = new VerticalLayout();
 	private final HorizontalLayout hLayout = new HorizontalLayout();
+	
+	private final HorizontalLayout h2Layout = new HorizontalLayout();
+	
 	private UploadReceiver uploadReceiver;
 	private Upload upload;
 	private Button solveButton = new Button("Solve");
@@ -66,18 +72,31 @@ public class Sudoku extends UI {
 
 		grid = new GridLayout( 9, 9 );
 		
-		
 		grid.setMargin(false);
 		grid.setSpacing(false);
 		grid.setWidth("300px");
 		grid.setHeight("300px");
 		grid.addLayoutClickListener(new GridClickListener());
 		
+		inputGrid = new GridLayout(3,3);
+		inputGrid.setWidth("100px");
+		inputGrid.setHeight("100px");
+		
 		panel = new Panel();
 		
 		panel.setContent(grid);
 		panel.setWidth("305px");
 		panel.setHeight("305px");
+		
+		inputPanel = new Panel();
+		
+		inputPanel.setContent(inputGrid);
+		inputPanel.setWidth("110px");
+		inputPanel.setHeight("110px");
+		inputGrid.setMargin(false);
+		inputGrid.setSpacing(true);
+		
+		h2Layout.setSpacing(true);
 		
 		board = new Board();
 		
@@ -94,7 +113,22 @@ public class Sudoku extends UI {
 				label.setImmediate(true);
 			
 				grid.addComponent( label, col, row );
+				grid.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
 			}
+		
+		//Making out 1-9 grid for input
+		for(int i = 1; i <= 9; i++){
+			
+			Label inputLabel = new Label();
+			inputLabel.setValue(Integer.toString(i));
+			
+			inputLabel.setWidth(null);
+			inputLabel.setImmediate(true);
+			
+			inputGrid.addComponent(inputLabel);
+			inputGrid.setComponentAlignment(inputLabel, Alignment.MIDDLE_CENTER);
+			
+		}
 		
 		uploadReceiver = new UploadReceiver(grid, board);
 		upload = new Upload(" ", uploadReceiver);
@@ -104,13 +138,18 @@ public class Sudoku extends UI {
 		vLayout.addComponent( hLayout );
 		hLayout.addComponent(upload);
 		hLayout.addComponent(solveButton);
+		
+		
+		
 		hLayout.setMargin(true);
 		hLayout.setSpacing(true);
 		hLayout.setComponentAlignment(solveButton, Alignment.BOTTOM_RIGHT);
 		
 		
+		h2Layout.addComponent(panel);
+		h2Layout.addComponent(inputPanel);
 		
-		vLayout.addComponent(panel);
+		vLayout.addComponent(h2Layout);
 		vLayout.setMargin(true);
 		vLayout.setSpacing(true);
 		

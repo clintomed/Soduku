@@ -9,6 +9,8 @@ import com.vaadin.server.VaadinService;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.DragAndDropWrapper;
+import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -125,8 +127,11 @@ public class Sudoku extends UI {
 			inputLabel.setWidth(null);
 			inputLabel.setImmediate(true);
 			
-			inputGrid.addComponent(inputLabel);
-			inputGrid.setComponentAlignment(inputLabel, Alignment.MIDDLE_CENTER);
+			DragAndDropWrapper labelWrap = new DragAndDropWrapper(inputLabel);
+			labelWrap.setDragStartMode(DragStartMode.COMPONENT);
+			
+			inputGrid.addComponent(labelWrap);
+			inputGrid.setComponentAlignment(labelWrap, Alignment.MIDDLE_CENTER);
 			
 		}
 		

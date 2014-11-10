@@ -4,11 +4,22 @@ import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.client.ApplicationConnection;
+import com.vaadin.event.dd.DragAndDropEvent;
+import com.vaadin.event.dd.DropHandler;
+import com.vaadin.event.dd.acceptcriteria.AcceptAll;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinService;
 import com.vaadin.server.VaadinServlet;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
+import com.vaadin.event.dd.DragAndDropEvent;
+import com.vaadin.event.dd.DropHandler;
+import com.vaadin.event.dd.DropTarget;
+import com.vaadin.event.dd.TargetDetails;
+import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
+import com.vaadin.event.dd.acceptcriteria.Not;
+import com.vaadin.event.dd.acceptcriteria.SourceIsTarget;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
 import com.vaadin.ui.GridLayout;
@@ -41,6 +52,7 @@ public class Sudoku extends UI {
 	private UploadReceiver uploadReceiver;
 	private Upload upload;
 	private Button solveButton = new Button("Solve");
+	
 
 	@WebServlet(value = "/*", asyncSupported = true)
 	@VaadinServletConfiguration(productionMode = false, ui = Sudoku.class)
@@ -113,9 +125,22 @@ public class Sudoku extends UI {
 
 				label.setWidth(null);
 				label.setImmediate(true);
+				
+				DragAndDropWrapper layoutWrapper = new DragAndDropWrapper(label);
+				
+				layoutWrapper.setDropHandler(new DropHandler() {
+					public AcceptCriterion getAcceptCriterion() {
+				       return AcceptAll.get();
+					}
+					public void drop(DragAndDropEvent event) {
+						System.out.print("DDEEEEERRRRRRROOOOOOOPPPPPPPPPP");
+				    }
+				
+				});
 			
-				grid.addComponent( label, col, row );
-				grid.setComponentAlignment(label, Alignment.MIDDLE_CENTER);
+				grid.addComponent( layoutWrapper, col, row );
+				grid.setComponentAlignment(layoutWrapper, Alignment.MIDDLE_CENTER);
+				
 			}
 		
 		//Making out 1-9 grid for input
@@ -134,6 +159,9 @@ public class Sudoku extends UI {
 			inputGrid.setComponentAlignment(labelWrap, Alignment.MIDDLE_CENTER);
 			
 		}
+		
+		
+		
 		
 		uploadReceiver = new UploadReceiver(grid, board);
 		upload = new Upload(" ", uploadReceiver);

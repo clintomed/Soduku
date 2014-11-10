@@ -1,0 +1,2 @@
+1) Add the drop wrapper and drop handler for our grid.
+2) Define the drop implementation method

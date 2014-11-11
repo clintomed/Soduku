@@ -5,6 +5,8 @@ import javax.servlet.annotation.WebServlet;
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.client.ApplicationConnection;
+import com.vaadin.event.DataBoundTransferable;
+import com.vaadin.event.Transferable;
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
 import com.vaadin.event.dd.acceptcriteria.AcceptAll;
@@ -15,13 +17,18 @@ import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.event.dd.DragAndDropEvent;
 import com.vaadin.event.dd.DropHandler;
+import com.vaadin.data.Container;
+import com.vaadin.data.Item;
+import com.vaadin.data.Property;
 import com.vaadin.event.dd.DropTarget;
 import com.vaadin.event.dd.TargetDetails;
 import com.vaadin.event.dd.acceptcriteria.AcceptCriterion;
 import com.vaadin.event.dd.acceptcriteria.Not;
 import com.vaadin.event.dd.acceptcriteria.SourceIsTarget;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
+import com.vaadin.ui.DragAndDropWrapper.WrapperTransferable;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Label;
@@ -119,6 +126,7 @@ public class Sudoku extends UI {
 			for( int row = 0; row < 9; row++ )
 			{
 				Label label = new Label();
+				
 
 				label.setPropertyDataSource(board.getCellElement(col, row));
 				label.addValueChangeListener(new CEValueChangeListener());
@@ -133,7 +141,12 @@ public class Sudoku extends UI {
 				       return AcceptAll.get();
 					}
 					public void drop(DragAndDropEvent event) {
-						System.out.print("DDEEEEERRRRRRROOOOOOOPPPPPPPPPP");
+						
+						WrapperTransferable dragInput = (WrapperTransferable) event.getTransferable();
+						String draggedItem = dragInput.getDraggedComponent().getCaption();
+						
+						System.out.print("Data is: "  + draggedItem + "\n");
+						//board.getCellElement(ourCol, ourRow).setValue(dragInput);
 				    }
 				
 				});
@@ -148,6 +161,9 @@ public class Sudoku extends UI {
 			
 			Label inputLabel = new Label();
 			inputLabel.setValue(Integer.toString(i));
+			inputLabel.setCaption(Integer.toString(i));
+			System.out.print("Putting in: "  + inputLabel.getCaption() + "\n");
+			
 			
 			inputLabel.setWidth(null);
 			inputLabel.setImmediate(true);

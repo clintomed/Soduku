@@ -36,7 +36,8 @@ public class UploadReceiver implements Receiver, FinishedListener {
 	// button.
 	@Override
 	public OutputStream receiveUpload(String filename, String mimeType) {
-
+		
+		System.out.println("Recieving upload from:" + filename + "\n");
 		try {
 			fos = new FileOutputStream("sudoinput.txt");
 		} 

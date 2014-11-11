@@ -28,6 +28,7 @@ import com.vaadin.event.dd.acceptcriteria.SourceIsTarget;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.DragAndDropWrapper;
 import com.vaadin.ui.DragAndDropWrapper.DragStartMode;
+import com.vaadin.ui.DragAndDropWrapper.WrapperTargetDetails;
 import com.vaadin.ui.DragAndDropWrapper.WrapperTransferable;
 import com.vaadin.ui.GridLayout;
 import com.vaadin.ui.HorizontalLayout;
@@ -125,9 +126,11 @@ public class Sudoku extends UI {
 		for( int col = 0; col < 9; col++ )
 			for( int row = 0; row < 9; row++ )
 			{
-				Label label = new Label();
+				final Label label = new Label();
 				
-
+				final int ourCol = col;
+				final int ourRow = row;
+				
 				label.setPropertyDataSource(board.getCellElement(col, row));
 				label.addValueChangeListener(new CEValueChangeListener());
 
@@ -145,8 +148,12 @@ public class Sudoku extends UI {
 						WrapperTransferable dragInput = (WrapperTransferable) event.getTransferable();
 						String draggedItem = dragInput.getDraggedComponent().getCaption();
 						
+						//WrapperTargetDetails details = (WrapperTargetDetails) event.getTargetDetails();
+						
+						
 						System.out.print("Data is: "  + draggedItem + "\n");
-						//board.getCellElement(ourCol, ourRow).setValue(dragInput);
+						board.setValue(ourCol, ourRow, draggedItem, draggedItem.equals("0") ? false : true);
+						label.setPropertyDataSource(board.getCellElement(ourCol, ourRow));
 				    }
 				
 				});

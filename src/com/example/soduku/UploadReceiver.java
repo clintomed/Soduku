@@ -58,22 +58,25 @@ public class UploadReceiver implements Receiver, FinishedListener {
 
 	@Override
 	public void uploadFinished(FinishedEvent event) {
-
+		
 
 		try {
 			fis = new FileInputStream("sudoinput.txt");
 			isr = new InputStreamReader(fis);
 			BufferedReader br = new BufferedReader(isr);
 			String sCurrentLine;
-
+			
+			
+			
 			int row = 0; int col = 0;
 			while ((sCurrentLine = br.readLine()) != null) {
-
+				System.out.println(sCurrentLine);
 				String[] field = sCurrentLine.split(" ");
 
 				col = 0;
 				for (String s : field ) 
 				{
+					System.out.println("Our String:" + s + "\n");
 					// set to ReadOnly to false to allow for update
 					board.setReadOnly( col, row, false );
 					

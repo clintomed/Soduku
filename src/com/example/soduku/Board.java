@@ -2,7 +2,7 @@ package com.example.soduku;
 
 
 import com.vaadin.data.Property;
-
+@SuppressWarnings("serial")
 public class Board 
 {
 	public final static int T_COL = 9;

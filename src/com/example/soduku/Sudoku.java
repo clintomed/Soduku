@@ -49,14 +49,8 @@ public class Sudoku extends UI {
 	private GridLayout grid;
 	private Board board;
 	
-	private GridLayout inputGrid;
-	private Panel inputPanel;
-	
 	private final VerticalLayout vLayout = new VerticalLayout();
 	private final HorizontalLayout hLayout = new HorizontalLayout();
-	
-	private final HorizontalLayout h2Layout = new HorizontalLayout();
-	
 	private UploadReceiver uploadReceiver;
 	private Upload upload;
 	private Button solveButton = new Button("Solve");
@@ -93,6 +87,7 @@ public class Sudoku extends UI {
 		
 		// each component should now be addressable by x,y
 
+<<<<<<< HEAD
 //		grid = new GridLayout( 9, 9 );
 //		
 //		grid.setMargin(false);
@@ -186,6 +181,39 @@ public class Sudoku extends UI {
 		
 		
 		
+=======
+		grid = new GridLayout( 9, 9 );
+		
+		
+		grid.setMargin(false);
+		grid.setSpacing(false);
+		grid.setWidth("300px");
+		grid.setHeight("300px");
+		grid.addLayoutClickListener(new GridClickListener());
+		
+		panel = new Panel();
+		
+		panel.setContent(grid);
+		panel.setWidth("305px");
+		panel.setHeight("305px");
+		
+		board = new Board();
+		
+		// connect the tile to the display
+		for( int col = 0; col < 9; col++ )
+			for( int row = 0; row < 9; row++ )
+			{
+				Label label = new Label();
+
+				label.setPropertyDataSource(board.getCellElement(col, row));
+				label.addValueChangeListener(new CEValueChangeListener());
+
+				label.setWidth(null);
+				label.setImmediate(true);
+			
+				grid.addComponent( label, col, row );
+			}
+>>>>>>> parent of 365ceff... Added input grid.
 		
 		uploadReceiver = new UploadReceiver(grid, board);
 		upload = new Upload(" ", uploadReceiver);
@@ -196,18 +224,18 @@ public class Sudoku extends UI {
 		vLayout.addComponent(pBoard);
 		hLayout.addComponent(upload);
 		hLayout.addComponent(solveButton);
-		
-		
-		
 		hLayout.setMargin(true);
 		hLayout.setSpacing(true);
 		hLayout.setComponentAlignment(solveButton, Alignment.BOTTOM_RIGHT);
 		
 		
+<<<<<<< HEAD
 		//h2Layout.addComponent(panel);
 		//h2Layout.addComponent(inputPanel);
+=======
+>>>>>>> parent of 365ceff... Added input grid.
 		
-		vLayout.addComponent(h2Layout);
+		vLayout.addComponent(panel);
 		vLayout.setMargin(true);
 		vLayout.setSpacing(true);
 		

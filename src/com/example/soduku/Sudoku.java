@@ -119,7 +119,11 @@ public class Sudoku extends UI {
 			
 				grid.addComponent( label, col, row );
 			}
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> parent of 365ceff... Added input grid.
 		uploadReceiver = new UploadReceiver(grid, board);
 		upload = new Upload(" ", uploadReceiver);
 		upload.setButtonCaption("Load Soduko File");
@@ -132,7 +136,13 @@ public class Sudoku extends UI {
 		hLayout.setMargin(true);
 		hLayout.setSpacing(true);
 		hLayout.setComponentAlignment(solveButton, Alignment.BOTTOM_RIGHT);
+<<<<<<< HEAD
 
+=======
+		
+		
+		
+>>>>>>> parent of 365ceff... Added input grid.
 		vLayout.addComponent(panel);
 		vLayout.setMargin(true);
 		vLayout.setSpacing(true);

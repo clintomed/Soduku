@@ -69,7 +69,8 @@ public class Sudoku extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-
+		
+		final PlayBoard pBoard = new PlayBoard();
 
 		// Find the application directory
 		String basepath = VaadinService.getCurrent()
@@ -92,96 +93,96 @@ public class Sudoku extends UI {
 		
 		// each component should now be addressable by x,y
 
-		grid = new GridLayout( 9, 9 );
-		
-		grid.setMargin(false);
-		grid.setSpacing(false);
-		grid.setWidth("300px");
-		grid.setHeight("300px");
-		grid.addLayoutClickListener(new GridClickListener());
-		
-		inputGrid = new GridLayout(3,3);
-		inputGrid.setWidth("100px");
-		inputGrid.setHeight("100px");
-		
-		panel = new Panel();
-		
-		panel.setContent(grid);
-		panel.setWidth("305px");
-		panel.setHeight("305px");
-		
-		inputPanel = new Panel();
-		
-		inputPanel.setContent(inputGrid);
-		inputPanel.setWidth("110px");
-		inputPanel.setHeight("110px");
-		inputGrid.setMargin(false);
-		inputGrid.setSpacing(true);
-		
-		h2Layout.setSpacing(true);
-		
-		board = new Board();
+//		grid = new GridLayout( 9, 9 );
+//		
+//		grid.setMargin(false);
+//		grid.setSpacing(false);
+//		grid.setWidth("300px");
+//		grid.setHeight("300px");
+//		grid.addLayoutClickListener(new GridClickListener());
+//		
+//		inputGrid = new GridLayout(3,3);
+//		inputGrid.setWidth("100px");
+//		inputGrid.setHeight("100px");
+//		
+//		panel = new Panel();
+//		
+//		panel.setContent(grid);
+//		panel.setWidth("305px");
+//		panel.setHeight("305px");
+//		
+//		inputPanel = new Panel();
+//		
+//		inputPanel.setContent(inputGrid);
+//		inputPanel.setWidth("110px");
+//		inputPanel.setHeight("110px");
+//		inputGrid.setMargin(false);
+//		inputGrid.setSpacing(true);
+//		
+//		h2Layout.setSpacing(true);
+//		
+//		board = new Board();
 		
 		// connect the tile to the display
-		for( int col = 0; col < 9; col++ )
-			for( int row = 0; row < 9; row++ )
-			{
-				final Label label = new Label();
-				
-				final int ourCol = col;
-				final int ourRow = row;
-				
-				label.setPropertyDataSource(board.getCellElement(col, row));
-				label.addValueChangeListener(new CEValueChangeListener());
-
-				label.setWidth(null);
-				label.setImmediate(true);
-				
-				DragAndDropWrapper layoutWrapper = new DragAndDropWrapper(label);
-				
-				layoutWrapper.setDropHandler(new DropHandler() {
-					public AcceptCriterion getAcceptCriterion() {
-				       return AcceptAll.get();
-					}
-					public void drop(DragAndDropEvent event) {
-						
-						WrapperTransferable dragInput = (WrapperTransferable) event.getTransferable();
-						String draggedItem = dragInput.getDraggedComponent().getCaption();
-						
-						//WrapperTargetDetails details = (WrapperTargetDetails) event.getTargetDetails();
-						
-						
-						System.out.print("Data is: "  + draggedItem + "\n");
-						board.setValue(ourCol, ourRow, draggedItem, draggedItem.equals("0") ? false : true);
-						label.setPropertyDataSource(board.getCellElement(ourCol, ourRow));
-				    }
-				
-				});
-			
-				grid.addComponent( layoutWrapper, col, row );
-				grid.setComponentAlignment(layoutWrapper, Alignment.MIDDLE_CENTER);
-				
-			}
-		
-		//Making out 1-9 grid for input
-		for(int i = 1; i <= 9; i++){
-			
-			Label inputLabel = new Label();
-			inputLabel.setValue(Integer.toString(i));
-			inputLabel.setCaption(Integer.toString(i));
-			System.out.print("Putting in: "  + inputLabel.getCaption() + "\n");
-			
-			
-			inputLabel.setWidth(null);
-			inputLabel.setImmediate(true);
-			
-			DragAndDropWrapper labelWrap = new DragAndDropWrapper(inputLabel);
-			labelWrap.setDragStartMode(DragStartMode.COMPONENT);
-			
-			inputGrid.addComponent(labelWrap);
-			inputGrid.setComponentAlignment(labelWrap, Alignment.MIDDLE_CENTER);
-			
-		}
+//		for( int col = 0; col < 9; col++ )
+//			for( int row = 0; row < 9; row++ )
+//			{
+//				final Label label = new Label();
+//				
+//				final int ourCol = col;
+//				final int ourRow = row;
+//				
+//				label.setPropertyDataSource(board.getCellElement(col, row));
+//				label.addValueChangeListener(new CEValueChangeListener());
+//
+//				label.setWidth(null);
+//				label.setImmediate(true);
+//				
+//				DragAndDropWrapper layoutWrapper = new DragAndDropWrapper(label);
+//				
+//				layoutWrapper.setDropHandler(new DropHandler() {
+//					public AcceptCriterion getAcceptCriterion() {
+//				       return AcceptAll.get();
+//					}
+//					public void drop(DragAndDropEvent event) {
+//						
+//						WrapperTransferable dragInput = (WrapperTransferable) event.getTransferable();
+//						String draggedItem = dragInput.getDraggedComponent().getCaption();
+//						
+//						//WrapperTargetDetails details = (WrapperTargetDetails) event.getTargetDetails();
+//						
+//						
+//						System.out.print("Data is: "  + draggedItem + "\n");
+//						board.setValue(ourCol, ourRow, draggedItem, draggedItem.equals("0") ? false : true);
+//						label.setPropertyDataSource(board.getCellElement(ourCol, ourRow));
+//				    }
+//				
+//				});
+//			
+//				grid.addComponent( layoutWrapper, col, row );
+//				grid.setComponentAlignment(layoutWrapper, Alignment.MIDDLE_CENTER);
+//				
+//			}
+//		
+//		//Making out 1-9 grid for input
+//		for(int i = 1; i <= 9; i++){
+//			
+//			Label inputLabel = new Label();
+//			inputLabel.setValue(Integer.toString(i));
+//			inputLabel.setCaption(Integer.toString(i));
+//			System.out.print("Putting in: "  + inputLabel.getCaption() + "\n");
+//			
+//			
+//			inputLabel.setWidth(null);
+//			inputLabel.setImmediate(true);
+//			
+//			DragAndDropWrapper labelWrap = new DragAndDropWrapper(inputLabel);
+//			labelWrap.setDragStartMode(DragStartMode.COMPONENT);
+//			
+//			inputGrid.addComponent(labelWrap);
+//			inputGrid.setComponentAlignment(labelWrap, Alignment.MIDDLE_CENTER);
+//			
+//		}
 		
 		
 		
@@ -192,6 +193,7 @@ public class Sudoku extends UI {
 		upload.setImmediate(true);
 
 		vLayout.addComponent( hLayout );
+		vLayout.addComponent(pBoard);
 		hLayout.addComponent(upload);
 		hLayout.addComponent(solveButton);
 		
@@ -202,8 +204,8 @@ public class Sudoku extends UI {
 		hLayout.setComponentAlignment(solveButton, Alignment.BOTTOM_RIGHT);
 		
 		
-		h2Layout.addComponent(panel);
-		h2Layout.addComponent(inputPanel);
+		//h2Layout.addComponent(panel);
+		//h2Layout.addComponent(inputPanel);
 		
 		vLayout.addComponent(h2Layout);
 		vLayout.setMargin(true);

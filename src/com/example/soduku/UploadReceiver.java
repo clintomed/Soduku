@@ -15,6 +15,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.Upload.FinishedEvent;
 import com.vaadin.ui.Upload.FinishedListener;
 import com.vaadin.ui.Upload.Receiver;
+import com.vaadin.ui.DragAndDropWrapper;
+
 
 public class UploadReceiver implements Receiver, FinishedListener {
 
@@ -88,9 +90,17 @@ public class UploadReceiver implements Receiver, FinishedListener {
 			}			
 			
 			// update the tiles for display
-			for( col = 0; col < 9; col++ )
-				for( row = 0; row < 9; row++ )
-					((Label)grid.getComponent(col, row)).setPropertyDataSource(board.getCellElement(col, row));
+			for( col = 0; col < 9; col++ ){
+				for( row = 0; row < 9; row++ ){
+					Property label = ((Label)((DragAndDropWrapper)grid.getComponent(col, row)).getData());
+					label.setValue(board.getCellElement(col, row).getValue());
+					
+					
+					
+				}
+
+			}
+				
 
 			System.out.println( board );
 
